@@ -1,6 +1,7 @@
 module Util
   ( processDay
    ,parseByLine
+   ,parseCommaSepList
    ,partUnimplemented
   ) where
 
@@ -8,13 +9,20 @@ import Import
 import qualified RIO.ByteString as B
 import qualified RIO.Text as T
 
+
 parseByLine :: (Text -> Maybe a) -> Text -> Maybe [a]
 parseByLine parseInputLine data_ = sequence $ map parseInputLine $ T.lines data_
+
+
+parseCommaSepList :: Read a => Text -> Maybe [a]
+parseCommaSepList line = sequence $ map (readMaybe . T.unpack) $ T.split (==',') line
+
 
 processDay :: Int -> (Text -> Maybe a) -> (a -> Utf8Builder) -> (a -> Utf8Builder) -> RIO App ()
 processDay n parseInput part1 part2 = do
   processDay' "SampleDay" n parseInput part1 part2
   processDay' "Day" n parseInput part1 part2
+
 
 processDay' :: Text -> Int -> (Text -> Maybe a) -> (a -> Utf8Builder) -> (a -> Utf8Builder) -> RIO App ()
 processDay' fileName n parseInput part1 part2 = do
@@ -26,6 +34,7 @@ processDay' fileName n parseInput part1 part2 = do
                      Just xs -> do
                                   logInfo ((display fileName) <> " " <> (display n) <> " part 1: " <> (part1 xs))
                                   logInfo ((display fileName) <> " " <> (display n) <> " part 2: " <> (part2 xs))
+
 
 partUnimplemented :: a -> Utf8Builder
 partUnimplemented _ = "Not yet!"

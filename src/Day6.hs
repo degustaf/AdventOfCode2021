@@ -8,11 +8,7 @@ import qualified RIO.Map as Map
 import qualified RIO.Text as T
 
 day6 :: RIO App ()
-day6 = processDay 6 parseInput part1 part2
-
-
-parseInput :: Text -> Maybe [Int]
-parseInput line = sequence $ map (readMaybe . T.unpack) $ T.split (==',') line
+day6 = processDay 6 parseCommaSepList part1 part2
 
 
 countFish :: Int -> [Int] -> Utf8Builder
