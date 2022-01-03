@@ -17,8 +17,8 @@ parseInputLine line = sequence $ T.foldr (\c xs -> (f c) : xs) [] line
         f _ = Nothing
 
 
-part1 :: [[Binary]] -> Utf8Builder
-part1 xs = display $ gammaToTotal (toInt b) (length b)
+part1 :: [[Binary]] -> Int
+part1 xs = gammaToTotal (toInt b) (length b)
   where b = map occursMost $ L.transpose xs
         gammaToTotal n digits = n * (2^digits - 1 - n)
 
@@ -55,8 +55,8 @@ systemFilter p ret xs = systemFilter p (ret ++ [b]) $ map tail $ filter f xs
         tail (_:ys) = ys
 
 
-part2 :: [[Binary]] -> Utf8Builder
-part2 xs = display $ oxygen * co2
+part2 :: [[Binary]] -> Int
+part2 xs = oxygen * co2
   where oxygen = toInt $ lifeSupportFilter xs
         co2 = toInt $ co2Filter xs
         lifeSupportFilter = systemFilter occursMost []

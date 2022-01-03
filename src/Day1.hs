@@ -9,7 +9,7 @@ parseInputLine :: Text -> Maybe Int
 parseInputLine = readMaybe . T.unpack
 
 day1 :: RIO App ()
-day1 = processDay 1 (parseByLine parseInputLine) (display . largerCount) (display . largerCount . rollingAverage3)
+day1 = processDay 1 (parseByLine parseInputLine) largerCount (largerCount . rollingAverage3)
 
 
 largerCount :: [Int] -> Int

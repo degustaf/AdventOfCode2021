@@ -23,8 +23,8 @@ parseInputLine = f . T.words
         g _ _ = Nothing
 
 
-part1 :: [Direction] -> Utf8Builder
-part1 ds = display $ combine $ foldl' g (0, 0) ds
+part1 :: [Direction] -> Int
+part1 ds = combine $ foldl' g (0, 0) ds
   where combine :: (Int, Int) -> Int
         combine (f,s) = f * s
         g :: (Int, Int) -> Direction -> (Int, Int)
@@ -33,8 +33,8 @@ part1 ds = display $ combine $ foldl' g (0, 0) ds
         g (h, d) (Up n) = (h, d - n)
         -- Since we are measuring depth, Down and Up are the opposite of what is expected.
 
-part2 :: [Direction] ->Utf8Builder
-part2 ds = display $ combine $ foldl' g (0, 0, 0) ds
+part2 :: [Direction] -> Int
+part2 ds = combine $ foldl' g (0, 0, 0) ds
   where combine :: (Int, Int, Int) -> Int
         combine (f,s,_) = f * s
         g :: (Int, Int, Int) -> Direction -> (Int, Int, Int)

@@ -72,9 +72,9 @@ lineFn b (Line (x1,y1) (x2,y2))
   | otherwise = id
 
 
-part1 :: [Line] -> Utf8Builder
-part1 = display . (length . filter (>1) . concat) . foldl' (\ls g -> g ls) [] . map (lineFn False)
+part1 :: [Line] -> Int
+part1 = (length . filter (>1) . concat) . foldl' (\ls g -> g ls) [] . map (lineFn False)
 
 
-part2 :: [Line] -> Utf8Builder
-part2 = display . (length . filter (>1) . concat) . foldl' (\ls g -> g ls) [] . map (lineFn True)
+part2 :: [Line] -> Int
+part2 = (length . filter (>1) . concat) . foldl' (\ls g -> g ls) [] . map (lineFn True)

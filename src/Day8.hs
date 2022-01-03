@@ -69,11 +69,11 @@ mapping (Input xs) = f
         four = xs' LP.!! 2
 
 
-part1 :: [Entry] -> Utf8Builder
-part1 = display . sum . (map f)
+part1 :: [Entry] -> Int
+part1 = sum . (map f)
   where f (Entry _ out_) = length $ filter g $ asList out_
         g s = elem (length s) [2, 3, 4, 7]
 
 
-part2 :: [Entry] -> Utf8Builder
-part2 = display . sum . (map (\(Entry i o) -> mapping i o))
+part2 :: [Entry] -> Int
+part2 = sum . (map (\(Entry i o) -> mapping i o))

@@ -21,10 +21,10 @@ fuelUsedQuad :: Int -> [Int] -> Int
 fuelUsedQuad avg xs = sum $ map (\n -> sum1ToN $ abs (n - avg)) xs
 
 
-part1 :: [Int] -> Utf8Builder
-part1 xs = display $ fuelUsedLinear mean xs
+part1 :: [Int] -> Int
+part1 xs = fuelUsedLinear mean xs
   where mean = (L.sort xs) LP.!! ((length xs) `div` 2)
 
-part2 :: [Int] -> Utf8Builder
-part2 xs = display $ min (fuelUsedQuad (ceiling avg) xs) (fuelUsedQuad (floor avg) xs)
+part2 :: [Int] -> Int
+part2 xs = min (fuelUsedQuad (ceiling avg) xs) (fuelUsedQuad (floor avg) xs)
   where (avg :: Double) = fromIntegral (sum xs) / fromIntegral (length xs)
