@@ -18,13 +18,13 @@ parseCommaSepList :: Read a => Text -> Maybe [a]
 parseCommaSepList line = sequence $ map (readMaybe . T.unpack) $ T.split (==',') line
 
 
-processDay :: Display b => Int -> (Text -> Maybe a) -> (a -> b) -> (a -> b) -> RIO App ()
+processDay :: (Display b, Display c) => Int -> (Text -> Maybe a) -> (a -> b) -> (a -> c) -> RIO App ()
 processDay n parseInput part1 part2 = do
   processDay' "SampleDay" n parseInput part1 part2
   processDay' "Day" n parseInput part1 part2
 
 
-processDay' :: Display b => Text -> Int -> (Text -> Maybe a) -> (a -> b) -> (a -> b) -> RIO App ()
+processDay' :: (Display b, Display c) => Text -> Int -> (Text -> Maybe a) -> (a -> b) -> (a -> c) -> RIO App ()
 processDay' fileName n parseInput part1 part2 = do
   input <- B.readFile $ "input/" ++ (T.unpack fileName) ++ (show n) ++ ".txt"
   case T.decodeUtf8' input of
@@ -36,5 +36,5 @@ processDay' fileName n parseInput part1 part2 = do
                                   logInfo ((display fileName) <> " " <> (display n) <> " part 2: " <> (display $ part2 xs))
 
 
-partUnimplemented :: a -> Utf8Builder
+partUnimplemented :: a -> Text
 partUnimplemented _ = "Not yet!"

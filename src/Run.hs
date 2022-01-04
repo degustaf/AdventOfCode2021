@@ -13,6 +13,7 @@ import Day5
 import Day6
 import Day7
 import Day8
+import Day9
 
 run :: RIO App ()
 run = do
@@ -40,7 +41,8 @@ runDay 5 = day5
 runDay 6 = day6
 runDay 7 = day7
 runDay 8 = day8
+runDay 9 = day9
 runDay n = errorDay $ tshow n
 
 runAll :: RIO App ()
-runAll = mapM_ runDay [1..8]
+runAll = mapM_ runDay [1..9]
